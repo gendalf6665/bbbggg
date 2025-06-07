@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.db import models
-from .models import SimCard, Operator
+from .models import SimCard
 
 class SimCardListView(ListView):
     model = SimCard
@@ -30,7 +30,6 @@ class SimCardListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['status_choices'] = SimCard.STATUS_CHOICES
-        context['operators'] = Operator.objects.all()
         return context
 
 class SimCardDetailView(DetailView):

@@ -42,29 +42,29 @@
     <div class="module">
         <table class="table">
             <thead>
-                <tr>
-                    <th>Номер</th>
-                    <th>ICCID</th>
-                    <th>Оператор</th>
-                    <th>Статус</th>
-                    <th>Баланс</th>
-                </tr>
-            </thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>ICCID</th>
+                        <th>Оператор</th>
+                        <th>Статус</th>
+                        <th>Баланс</th>
+                    </tr>
+                </thead>
             <tbody>
-                {% for simcard in simcards %}
-                <tr>
-                    <td><a href="{% url 'sim_management:simcard_detail' simcard.pk %}">{{ simcard.phone_number }}</a></td>
-                    <td>{{ simcard.iccid }}</td>
-                    <td>{{ simcard.operator.name|default:"Не указан" }}</td>
-                    <td>{{ simcard.get_status_display }}</td>
-                    <td>{{ simcard.balance }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">Нет SIM-карт</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                    {% for simcard in simcards %}
+                    <tr>
+                                <td><a href="{% url 'sim_management:simcard_detail' simcard.pk %}">{{ simcard.phone_number }}</a></td>
+                                <td>{{ simcard.iccid }}</td>
+                                <td>{{ simcard.operator|default:"Не определен" }}</td>
+                                <td>{{ simcard.get_status_display }}</td>
+                                <td>{{ simcard.balance }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">Нет SIM-карт</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
         </table>
     </div>
 
