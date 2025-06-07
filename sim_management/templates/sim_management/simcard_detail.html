@@ -1,0 +1,18 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+<div id="content-main">
+    <h1>{{ simcard.phone_number }}</h1>
+    <div class="module">
+        <p><strong>ICCID:</strong> {{ simcard.iccid }}</p>
+        <p><strong>Оператор:</strong> {{ simcard.operator.name|default:"Не указан" }}</p>
+        <p><strong>Статус:</strong> {{ simcard.get_status_display }}</p>
+        <p><strong>Баланс:</strong> {{ simcard.balance }}</p>
+        <p><strong>Дата активации:</strong> {{ simcard.activation_date|default:"Не указана" }}</p>
+        <p><strong>Владелец:</strong> {{ simcard.owner_name|default:"Не указан" }}</p>
+        <p><strong>Создано:</strong> {{ simcard.created_at }}</p>
+        <p><strong>Обновлено:</strong> {{ simcard.updated_at }}</p>
+    </div>
+    <a href="{% url 'sim_management:simcard_list' %}">Назад к списку</a>
+</div>
+{% endblock %}

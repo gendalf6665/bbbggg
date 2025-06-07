@@ -1,0 +1,88 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <h1>SIM-карты</h1>
+
+    <!-- Поиск -->
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Поиск по номеру, ICCID или владельцу" value="{{ request.GET.q }}">
+        <input type="submit" value="Найти">
+    </form>
+
+    <!-- Фильтры -->
+    <div class="module">
+        <h2>Фильтры</h2>
+        <form method="get" action="">
+            <label for="status_filter">Статус:</label>
+            <select name="status" id="status_filter">
+                <option value="">Все</option>
+                {% for choice in status_choices %}
+                    <option value="{{ choice.0 }}" {% if request.GET.status == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="operator_filter">Оператор:</label>
+            <select name="operator" id="operator_filter">
+                <option value="">Все</option>
+                {% for operator in operators %}
+                    <option value="{{ operator.id }}" {% if request.GET.operator == operator.id|slugify %}selected{% endif %}>{{ operator.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Применить">
+        </form>
+    </div>
+
+    <!-- Таблица -->
+    <div class="module">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Номер</th>
+                    <th>ICCID</th>
+                    <th>Оператор</th>
+                    <th>Статус</th>
+                    <th>Баланс</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for simcard in simcards %}
+                <tr>
+                    <td><a href="{% url 'sim_management:simcard_detail' simcard.pk %}">{{ simcard.phone_number }}</a></td>
+                    <td>{{ simcard.iccid }}</td>
+                    <td>{{ simcard.operator.name|default:"Не указан" }}</td>
+                    <td>{{ simcard.get_status_display }}</td>
+                    <td>{{ simcard.balance }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Нет SIM-карт</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Пагинация -->
+    {% if is_paginated %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.operator %}&operator={{ request.GET.operator }}{% endif %}">Предыдущая</a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.operator %}&operator={{ request.GET.operator }}{% endif %}">Следующая</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
