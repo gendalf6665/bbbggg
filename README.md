@@ -1,0 +1,36 @@
+# SIM CRM
+
+CRM-система для управления SIM-картами, разработанная на Django.
+
+## Установка
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/your-username/sim-crm.git
+   cd sim-crm
+
+
+2. Создайте виртуальное окружение:
+    python -m venv venv
+    .\venv\Scripts\activate  # Для Windows
+
+3. Установите зависимости:
+    pip install -r requirements.txt
+
+4. Примените миграции:
+    python manage.py makemigrations
+    python manage.py migrate
+
+5. Соберите статические файлы:
+    python manage.py collectstatic
+
+6. Создайте суперпользователя:
+    python manage.py createsuperuser
+
+7. Запустите сервер:
+python manage.py runserver
+
+8. Откройте в браузере:
+    Главная страница: http://127.0.0.1:8000/
+    Админ-панель: http://127.0.0.1:8000/admin/
+
