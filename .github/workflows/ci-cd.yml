@@ -1,4 +1,4 @@
-name: CI/CD for sim-crm
+name: CI/CD for bbbggg
 
 on:
   push:
