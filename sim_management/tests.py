@@ -1,8 +1,4 @@
 from django.test import TestCase
-
-class SimManagementTests(TestCase):
-    def setUp(self):
-        pass
-
-    def test_placeholder(self):
-        self.assertTrue(True)
+class SimCardTests(TestCase):
+    def test_true(self):
+        self.assertTrue(True)  # Заглушка для CI
