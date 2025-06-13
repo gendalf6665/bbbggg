@@ -85,7 +85,7 @@ docker-compose exec django python manage.py createsuperuser
 docker-compose exec django python manage.py drf_create_token <username>
 
 
-Откройте в браузере:
+Откройте в браузере
 
 Главная страница: http://localhost/
 Детальная страница SIM-карты: http://localhost/simcard//
